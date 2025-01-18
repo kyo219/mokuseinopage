@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const projects = posts
+  .filter(post => post.data.tags.includes('project'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// プロジェクトのステータスを判定する関数
+function getProjectStatus(tags: string[]) {
+  if (tags.includes('completed')) return 'completed';
+  if (tags.includes('in-progress')) return 'in-progress';
+  return 'planned';
+}
+
+// 技術タグを抽出（project, completed などのステータスタグを除く）
+function getTechTags(tags: string[]) {
+  return tags.filter(tag => !['project', 'completed', 'in-progress', 'planned'].includes(tag));
+}
+---
+
+<Layout title="Projects">
+	<div class="projects-container">
+		<header class="projects-header">
+			<h1>Projects Showcase</h1>
+			<p class="subtitle">A collection of my work and experiments</p>
+		</header>
+
+		<div class="projects-grid">
+			{projects.map(project => {
+				const status = getProjectStatus(project.data.tags);
+				const techTags = getTechTags(project.data.tags);
+				return (
+					<a href={`/blog/${project.slug}`} class="project-card">
+						<div class="project-preview">
+							{(project.data.image || project.data.images?.[0]) && (
+								<img 
+									src={project.data.image || project.data.images[0]} 
+									alt={project.data.title}
+									class="project-image"
+								/>
+							)}
+							<div class="project-overlay">
+								<span class="view-project">View Project →</span>
+							</div>
+						</div>
+						<div class="project-content">
+							<div class="project-header">
+								<h2 class="project-title">{project.data.title}</h2>
+								<div class={`status-badge ${status}`}>
+									{status.replace('-', ' ')}
+								</div>
+							</div>
+							<p class="project-description">{project.data.description}</p>
+							<div class="tech-stack">
+								{techTags.map(tag => (
+									<span class="tech-tag">#{tag}</span>
+								))}
+							</div>
+						</div>
+					</a>
+				);
+			})}
+		</div>
+
+		{projects.length === 0 && (
+			<div class="empty-state">
+				<div class="empty-icon">🚧</div>
+				<h2>No Projects Yet</h2>
+				<p>Projects are coming soon! Stay tuned...</p>
+			</div>
+		)}
+	</div>
+</Layout>
+
+<style>
+	.projects-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+
+	.projects-header {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+
+	.subtitle {
+		color: var(--secondary-text);
+		font-size: 1.1rem;
+		margin-top: 0.5rem;
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.project-card {
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+		overflow: hidden;
+		text-decoration: none;
+		color: inherit;
+		transition: all 0.3s ease;
+	}
+
+	.project-card:hover {
+		transform: translateY(-4px);
+		border-color: var(--accent-color);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.project-preview {
+		position: relative;
+		aspect-ratio: 16/9;
+		background: var(--code-bg);
+		overflow: hidden;
+	}
+
+	.project-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.3s ease;
+	}
+
+	.project-overlay {
+		position: absolute;
+		inset: 0;
+		background: rgba(0, 0, 0, 0.7);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.view-project {
+		color: white;
+		font-weight: 600;
+		transform: translateY(10px);
+		transition: transform 0.3s ease;
+	}
+
+	.project-card:hover .project-overlay {
+		opacity: 1;
+	}
+
+	.project-card:hover .view-project {
+		transform: translateY(0);
+	}
+
+	.project-card:hover .project-image {
+		transform: scale(1.05);
+	}
+
+	.project-content {
+		padding: 1.5rem;
+	}
+
+	.project-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.project-title {
+		font-size: 1.25rem;
+		margin: 0;
+	}
+
+	.status-badge {
+		font-size: 0.8rem;
+		padding: 0.25rem 0.75rem;
+		border-radius: 9999px;
+		font-weight: 600;
+		text-transform: capitalize;
+	}
+
+	.status-badge.completed {
+		background: rgba(0, 200, 83, 0.1);
+		color: rgb(0, 200, 83);
+	}
+
+	.status-badge.in-progress {
+		background: rgba(255, 171, 0, 0.1);
+		color: rgb(255, 171, 0);
+	}
+
+	.status-badge.planned {
+		background: rgba(99, 102, 241, 0.1);
+		color: rgb(99, 102, 241);
+	}
+
+	.project-description {
+		color: var(--secondary-text);
+		margin: 0 0 1rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.tech-stack {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.tech-tag {
+		font-size: 0.9rem;
+		color: var(--accent-color);
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: 4rem 2rem;
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+	}
+
+	.empty-icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 768px) {
+		.projects-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

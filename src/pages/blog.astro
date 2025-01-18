@@ -1,0 +1,310 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get unique tags
+const allTags = [...new Set(posts.flatMap(post => post.data.tags))].sort();
+---
+
+<Layout title="Blog">
+	<div class="blog-container">
+		<header class="blog-header">
+			<h1>Blog Timeline</h1>
+			<p class="subtitle">Thoughts, tutorials, and tech explorations</p>
+		</header>
+
+		<div class="tag-filter">
+			<button class="tag-button active" data-tag="all">All Posts</button>
+			{allTags.map(tag => (
+				<button class="tag-button" data-tag={tag}>#{tag}</button>
+			))}
+		</div>
+
+		<div class="timeline">
+			{sortedPosts.map(post => (
+				<div class="timeline-item" data-tags={JSON.stringify(post.data.tags)}>
+					<a href={`/blog/${post.slug}`} class="timeline-content">
+						<div class="post-meta">
+							<time datetime={post.data.date.toISOString()}>
+								{new Date(post.data.date).toLocaleDateString('ja-JP')}
+							</time>
+						</div>
+						<div class="post-card">
+							<div class="post-header">
+								<h2 class="post-title">{post.data.title}</h2>
+								<div class="tags">
+									{post.data.tags.map(tag => (
+										<button class="tag" data-tag={tag}>#{tag}</button>
+									))}
+								</div>
+							</div>
+							<p class="post-description">{post.data.description}</p>
+							{(post.data.image || post.data.images?.[0]) && (
+								<div class="post-image-container">
+									<img 
+										src={post.data.image || post.data.images[0]} 
+										alt={post.data.title}
+										class="post-image"
+										loading="lazy"
+									/>
+								</div>
+							)}
+						</div>
+					</a>
+				</div>
+			))}
+		</div>
+
+		{sortedPosts.length === 0 && (
+			<div class="empty-state">
+				<div class="empty-icon">📝</div>
+				<h2>No Posts Yet</h2>
+				<p>Blog posts are coming soon! Stay tuned...</p>
+			</div>
+		)}
+	</div>
+</Layout>
+
+<script>
+	function initializeTagFilter() {
+		const tagButtons = document.querySelectorAll('.tag-button, .tag');
+		const timelineItems = document.querySelectorAll('.timeline-item');
+		let activeTag = 'all';
+
+		function filterPosts(tag: string) {
+			timelineItems.forEach(item => {
+				const tags = JSON.parse(item.getAttribute('data-tags') || '[]');
+				if (tag === 'all' || tags.includes(tag)) {
+					item.classList.remove('hidden');
+				} else {
+					item.classList.add('hidden');
+				}
+			});
+		}
+
+		function updateActiveButton(clickedTag: string) {
+			tagButtons.forEach(button => {
+				if (button.getAttribute('data-tag') === clickedTag) {
+					button.classList.add('active');
+				} else {
+					button.classList.remove('active');
+				}
+			});
+		}
+
+		tagButtons.forEach(button => {
+			button.addEventListener('click', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				const tag = button.getAttribute('data-tag') || 'all';
+				if (tag === activeTag) return;
+				
+				activeTag = tag;
+				updateActiveButton(tag);
+				filterPosts(tag);
+			});
+		});
+	}
+
+	// Initialize when the DOM is ready
+	document.addEventListener('DOMContentLoaded', initializeTagFilter);
+</script>
+
+<style>
+	.blog-container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+
+	.blog-header {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.subtitle {
+		color: var(--secondary-text);
+		font-size: 1.1rem;
+		margin-top: 0.5rem;
+	}
+
+	.tag-filter {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		margin-bottom: 2rem;
+		padding: 1rem;
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		position: sticky;
+		top: 80px;
+		z-index: 10;
+		backdrop-filter: blur(12px);
+	}
+
+	.tag-button {
+		background: transparent;
+		border: 1px solid var(--border-color);
+		color: var(--secondary-text);
+		padding: 0.5rem 1rem;
+		border-radius: 9999px;
+		font-size: 0.9rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.tag-button:hover {
+		border-color: var(--accent-color);
+		color: var(--accent-color);
+	}
+
+	.tag-button.active {
+		background: var(--accent-color);
+		border-color: var(--accent-color);
+		color: white;
+	}
+
+	.timeline {
+		position: relative;
+		padding-left: 2rem;
+	}
+
+	.timeline::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: var(--border-color);
+	}
+
+	.timeline-item {
+		position: relative;
+		margin-bottom: 2rem;
+	}
+
+	.timeline-item::before {
+		content: '';
+		position: absolute;
+		left: -2rem;
+		top: 1.5rem;
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: var(--accent-color);
+		border: 2px solid var(--bg-color);
+	}
+
+	.timeline-item.hidden {
+		display: none;
+	}
+
+	.timeline-content {
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+		overflow: hidden;
+		display: block;
+		text-decoration: none;
+		color: inherit;
+		transition: all 0.3s ease;
+	}
+
+	.timeline-content:hover {
+		transform: translateY(-4px);
+		border-color: var(--accent-color);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.post-meta {
+		padding: 1rem;
+		border-bottom: 1px solid var(--border-color);
+		color: var(--secondary-text);
+		font-size: 0.9rem;
+	}
+
+	.post-card {
+		padding: 1rem;
+	}
+
+	.post-header {
+		margin-bottom: 1rem;
+	}
+
+	.post-title {
+		font-size: 1.25rem;
+		margin: 0 0 0.5rem;
+		color: var(--text-color);
+	}
+
+	.tags {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.tag {
+		background: transparent;
+		border: none;
+		color: var(--accent-color);
+		font-size: 0.9rem;
+		padding: 0;
+		cursor: pointer;
+		transition: opacity 0.2s ease;
+	}
+
+	.tag:hover {
+		opacity: 0.7;
+	}
+
+	.post-description {
+		color: var(--secondary-text);
+		margin: 0 0 1rem;
+		line-height: 1.6;
+	}
+
+	.post-image-container {
+		border-radius: 12px;
+		overflow: hidden;
+		border: 1px solid var(--border-color);
+	}
+
+	.post-image {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+		display: block;
+	}
+
+	.empty-state {
+		text-align: center;
+		padding: 4rem 2rem;
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+	}
+
+	.empty-icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+
+	@media (max-width: 768px) {
+		.blog-container {
+			padding: 1rem;
+		}
+
+		.timeline {
+			padding-left: 1.5rem;
+		}
+
+		.timeline-item::before {
+			left: -1.5rem;
+		}
+	}
+</style>

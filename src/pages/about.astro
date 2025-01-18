@@ -1,0 +1,358 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About & Contact">
+	<div class="about-container">
+		<section class="about-section">
+			<div class="profile-header">
+				<div class="profile-image-chat">
+					<div class="image-container">
+						<img 
+							src="https://avatars.githubusercontent.com/kyo219" 
+							alt="Profile"
+							class="avatar"
+						/>
+						<div class="image-overlay"></div>
+					</div>
+					<div class="chat-bubble">
+						<div class="chat-input">
+							<span class="typing-text">Hello! I'm a developer who loves creating cool stuff with code!</span>
+							<span class="cursor"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact-section">
+			<div class="section-header">
+				<h2 class="glitch-text" data-text="Contact">Contact</h2>
+				<div class="header-line"></div>
+			</div>
+
+			<div class="contact-cards">
+				<a href="https://twitter.com/kyo219_" target="_blank" rel="noopener noreferrer" class="contact-card twitter">
+					<div class="card-icon">
+						<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/></svg>
+					</div>
+					<div class="card-content">
+						<h3>Twitter</h3>
+						<p>@kyo219_</p>
+					</div>
+					<div class="card-arrow">→</div>
+				</a>
+
+				<a href="https://github.com/kyo219" target="_blank" rel="noopener noreferrer" class="contact-card github">
+					<div class="card-icon">
+						<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+					</div>
+					<div class="card-content">
+						<h3>GitHub</h3>
+						<p>@kyo219</p>
+					</div>
+					<div class="card-arrow">→</div>
+				</a>
+			</div>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.about-container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 4rem 2rem;
+	}
+
+	.about-section {
+		margin-bottom: 6rem;
+	}
+
+	.profile-header {
+		margin-bottom: 4rem;
+	}
+
+	.profile-image-chat {
+		display: flex;
+		align-items: center;
+		gap: 3rem;
+		max-width: 800px; /* コンテナの最大幅を調整 */
+		margin: 0 auto;
+		padding: 0 1rem; /* 両端にパディングを追加 */
+	}
+
+	.image-container {
+		flex: 0 0 250px; /* 画像の幅を少し小さく */
+		position: relative;
+		border-radius: 20px;
+		overflow: hidden;
+		transform-style: preserve-3d;
+		transform: perspective(1000px);
+		transition: transform 0.3s ease;
+	}
+
+	.avatar {
+		width: 100%;
+		height: auto;
+		display: block;
+		transition: transform 0.3s ease;
+	}
+
+	.image-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(45deg, rgba(29, 155, 240, 0.2), transparent);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.image-container:hover {
+		transform: perspective(1000px) rotateY(5deg);
+	}
+
+	.image-container:hover .image-overlay {
+		opacity: 1;
+	}
+
+	.chat-bubble {
+		flex: 1;
+		min-width: 0; /* 追加: フレックスアイテムの最小幅を0に設定 */
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 20px;
+		padding: 1.5rem; /* パディングを少し小さく */
+		position: relative;
+		transform-origin: left center;
+		animation: popIn 0.5s ease-out forwards;
+	}
+
+	.chat-bubble::before {
+		content: '';
+		position: absolute;
+		left: -20px;
+		top: 50%;
+		transform: translateY(-50%);
+		border: 10px solid transparent;
+		border-right-color: var(--border-color);
+	}
+
+	.chat-bubble::after {
+		content: '';
+		position: absolute;
+		left: -19px;
+		top: 50%;
+		transform: translateY(-50%);
+		border: 10px solid transparent;
+		border-right-color: var(--card-bg);
+	}
+
+	.chat-input {
+		font-size: 1.2rem; /* フォントサイズを少し小さく */
+		color: var(--text-color);
+		position: relative;
+		word-wrap: break-word; /* 追加: 長い単語を折り返す */
+		overflow-wrap: break-word; /* 追加: 長い単語を折り返す */
+	}
+
+	.typing-text {
+		display: inline-block;
+		white-space: pre-wrap; /* 変更: 改行と空白を保持しつつ折り返す */
+		overflow: hidden;
+		animation: typing 3s steps(40, end);
+	}
+
+	.cursor {
+		display: inline-block;
+		width: 3px;
+		height: 1.2rem; /* カーソルの高さを調整 */
+		background: var(--accent-color);
+		margin-left: 4px;
+		animation: blink 1s step-end infinite;
+		vertical-align: middle;
+	}
+
+	/* 以下は変更なし */
+	.section-header {
+		text-align: center;
+		margin-bottom: 4rem;
+		position: relative;
+	}
+
+	.header-line {
+		width: 100px;
+		height: 4px;
+		background: var(--accent-color);
+		margin: 1rem auto;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.header-line::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+		animation: shimmer 2s infinite;
+	}
+
+	.contact-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.contact-card {
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 16px;
+		padding: 2rem;
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		text-decoration: none;
+		color: inherit;
+		transition: all 0.3s ease;
+	}
+
+	.contact-card:hover {
+		transform: translateY(-4px);
+		border-color: var(--accent-color);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.card-icon {
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 12px;
+	}
+
+	.card-icon svg {
+		width: 24px;
+		height: 24px;
+	}
+
+	.twitter .card-icon {
+		color: #1DA1F2;
+	}
+
+	.github .card-icon {
+		color: #fff;
+	}
+
+	.card-content {
+		flex: 1;
+	}
+
+	.card-content h3 {
+		margin: 0;
+		font-size: 1.2rem;
+		color: var(--text-color);
+	}
+
+	.card-content p {
+		margin: 0.25rem 0 0;
+		color: var(--secondary-text);
+	}
+
+	.card-arrow {
+		font-size: 1.5rem;
+		color: var(--accent-color);
+		opacity: 0;
+		transform: translateX(-10px);
+		transition: all 0.3s ease;
+	}
+
+	.contact-card:hover .card-arrow {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	@keyframes typing {
+		from { width: 0 }
+		to { width: 100% }
+	}
+
+	@keyframes blink {
+		50% { opacity: 0 }
+	}
+
+	@keyframes shimmer {
+		100% { transform: translateX(100%); }
+	}
+
+	@keyframes popIn {
+		0% { transform: scale(0.9); opacity: 0; }
+		100% { transform: scale(1); opacity: 1; }
+	}
+
+	@media (max-width: 768px) {
+		.about-container {
+			padding: 2rem 1rem;
+		}
+
+		.profile-image-chat {
+			flex-direction: column;
+			gap: 2rem;
+			padding: 0;
+		}
+
+		.image-container {
+			flex: 0 0 200px;
+			margin: 0 auto;
+		}
+
+		.chat-bubble {
+			margin: 0;
+			padding: 1rem;
+		}
+
+		.chat-bubble::before,
+		.chat-bubble::after {
+			left: 50%;
+			top: -20px;
+			transform: translateX(-50%) rotate(-90deg);
+		}
+
+		.chat-input {
+			font-size: 1rem;
+		}
+
+		.contact-cards {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	// 画像のマウス追従効果
+	document.addEventListener('DOMContentLoaded', () => {
+		const container = document.querySelector('.image-container') as HTMLElement;
+		if (!container) return;
+
+		container.addEventListener('mousemove', (e) => {
+			const rect = container.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+
+			const centerX = rect.width / 2;
+			const centerY = rect.height / 2;
+
+			const rotateX = (y - centerY) / 20;
+			const rotateY = -(x - centerX) / 20;
+
+			container.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+		});
+
+		container.addEventListener('mouseleave', () => {
+			container.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+		});
+	});
+</script>
