@@ -4,6 +4,7 @@ import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
   site: 'https://mokuseinopage.pages.dev',
+  base: '/',
   output: 'static',
   build: {
     assets: '_assets'
