@@ -6,11 +6,11 @@ export default defineConfig({
   site: 'https://mokuseinopage.pages.dev',
   base: '/',
   output: 'static',
-  build: {
-    assets: '_assets'
-  },
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
+  build: {
+    format: 'file'
+  }
 });
