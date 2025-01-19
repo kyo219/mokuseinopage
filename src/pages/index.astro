@@ -73,6 +73,7 @@ import Layout from '../layouts/Layout.astro';
 		</div>
 
 		<div class="cards-section">
+			<div class="kart-track"></div>
 			<a href="/product" class="card">
 				<div class="card-inner">
 					<div class="card-content">
@@ -108,6 +109,7 @@ import Layout from '../layouts/Layout.astro';
 					<div class="card-shine"></div>
 				</div>
 			</a>
+			
 		</div>
 	</div>
 </Layout>
@@ -575,6 +577,113 @@ import Layout from '../layouts/Layout.astro';
 		50% {
 			opacity: 0.8;
 			transform: scaleY(1.1);
+		}
+	}
+
+	.kart-track {
+		position: absolute;
+		top: 50%;
+		left: -20px;
+		right: -20px;
+		height: 400px;
+		transform: translateY(-50%);
+		border: 2px dashed rgba(29, 155, 240, 0.2);
+		border-radius: 30px;
+		pointer-events: none;
+	}
+
+	.kart-character {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		animation: drive 8s linear infinite;
+		pointer-events: none;
+	}
+
+	.kart {
+		position: relative;
+		width: 40px;
+		height: 40px;
+		animation: bounce 0.5s ease-in-out infinite;
+	}
+
+	.character {
+		position: absolute;
+		top: -15px;
+		left: 50%;
+		transform: translateX(-50%);
+		font-size: 20px;
+		z-index: 2;
+	}
+
+	.kart-body {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 20px;
+		background: #1d9bf0;
+		border-radius: 10px;
+	}
+
+	.wheel {
+		position: absolute;
+		bottom: -5px;
+		width: 12px;
+		height: 12px;
+		background: #333;
+		border-radius: 50%;
+		border: 2px solid #666;
+		animation: rotate 0.5s linear infinite;
+	}
+
+	.wheel:first-child {
+		left: 2px;
+	}
+
+	.wheel:last-child {
+		right: 2px;
+	}
+
+	@keyframes drive {
+		0% {
+			left: -50px;
+			transform: translateY(-50%) rotateY(0deg);
+		}
+		45% {
+			left: calc(100% + 50px);
+			transform: translateY(-50%) rotateY(0deg);
+		}
+		50% {
+			left: calc(100% + 50px);
+			transform: translateY(-50%) rotateY(180deg);
+		}
+		95% {
+			left: -50px;
+			transform: translateY(-50%) rotateY(180deg);
+		}
+		100% {
+			left: -50px;
+			transform: translateY(-50%) rotateY(0deg);
+		}
+	}
+
+	@keyframes bounce {
+		0%, 100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-2px);
+		}
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
 		}
 	}
 
