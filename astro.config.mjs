@@ -5,6 +5,9 @@ import rehypeKatex from 'rehype-katex';
 export default defineConfig({
   site: 'https://mokuseinopage.pages.dev',
   output: 'static',
+  build: {
+    assets: '_assets'
+  },
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
