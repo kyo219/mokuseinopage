@@ -5,6 +5,10 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="About & Contact">
 	<div class="about-container">
 		<section class="about-section">
+			<div class="section-header">
+				<h2 class="glitch-text" data-text="ME">ME</h2>
+				<div class="header-line"></div>
+			</div>
 			<div class="profile-header">
 				<div class="profile-image-chat">
 					<div class="image-container">
@@ -20,11 +24,11 @@ import Layout from '../layouts/Layout.astro';
 							<span class="typing-text">
 								<div class="profile-item">
 									<span class="profile-icon">🎓</span>
-									<span>東京大学 生物統計学修士</span>
+									<span>東京大学大学院 <br>生物統計学 修士卒</span>
 								</div>
 								<div class="profile-item">
 									<span class="profile-icon">💼</span>
-									<span>Data Scientist / Software Engineer</span>
+									<span>Data Scientist / SWE（noob）</span>
 								</div>
 								<div class="profile-item">
 									<span class="profile-icon">🚀</span>
@@ -350,6 +354,81 @@ import Layout from '../layouts/Layout.astro';
 	.profile-icon {
 		font-size: 1.2rem;
 		opacity: 0.9;
+	}
+
+	.glitch-text {
+		font-size: 2.5rem;
+		font-weight: bold;
+		color: var(--text-color);
+		position: relative;
+		display: inline-block;
+		margin: 0;
+	}
+
+	.glitch-text::before,
+	.glitch-text::after {
+		content: attr(data-text);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.glitch-text::before {
+		left: 2px;
+		text-shadow: -2px 0 var(--accent-color);
+		clip: rect(24px, 550px, 90px, 0);
+		animation: glitch-anim-2 3s infinite linear alternate-reverse;
+	}
+
+	.glitch-text::after {
+		left: -2px;
+		text-shadow: -2px 0 var(--accent-color);
+		clip: rect(85px, 550px, 140px, 0);
+		animation: glitch-anim 2.5s infinite linear alternate-reverse;
+	}
+
+	@keyframes glitch-anim {
+		0% {
+			clip: rect(42px, 9999px, 44px, 0);
+		}
+		20% {
+			clip: rect(12px, 9999px, 59px, 0);
+		}
+		40% {
+			clip: rect(48px, 9999px, 29px, 0);
+		}
+		60% {
+			clip: rect(73px, 9999px, 61px, 0);
+		}
+		80% {
+			clip: rect(34px, 9999px, 89px, 0);
+		}
+		100% {
+			clip: rect(66px, 9999px, 81px, 0);
+		}
+	}
+
+	@keyframes glitch-anim-2 {
+		0% {
+			clip: rect(65px, 9999px, 99px, 0);
+		}
+		20% {
+			clip: rect(45px, 9999px, 28px, 0);
+		}
+		40% {
+			clip: rect(75px, 9999px, 53px, 0);
+		}
+		60% {
+			clip: rect(22px, 9999px, 67px, 0);
+		}
+		80% {
+			clip: rect(32px, 9999px, 89px, 0);
+		}
+		100% {
+			clip: rect(54px, 9999px, 97px, 0);
+		}
 	}
 </style>
 
