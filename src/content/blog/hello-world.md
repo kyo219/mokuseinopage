@@ -20,12 +20,26 @@ images: [
 数式も書けます：
 
 $$
-E = mc^2
+\theta = (X^T X)^{-1} X^T y
 $$
 
 コードブロックも書けます：
 
 ```python
-def hello():
-    print("Hello, World!")
+import numpy as np
+
+def linear_regression(X, y):
+    # 正規方程式を使用した線形回帰
+    X = np.column_stack([np.ones(len(X)), X])  # バイアス項を追加
+    theta = np.linalg.inv(X.T @ X) @ X.T @ y
+    return theta
+
+# サンプルデータ
+X = np.array([[1], [2], [3], [4]])
+y = np.array([2, 4, 5, 4])
+
+# パラメータの計算
+theta = linear_regression(X, y)
+print(f"切片: {theta[0]:.2f}")
+print(f"傾き: {theta[1]:.2f}")
 ```
