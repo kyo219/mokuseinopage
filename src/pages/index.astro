@@ -9,31 +9,41 @@ import Layout from '../layouts/Layout.astro';
 			<div class="content-wrapper">
 				<h1 class="hero-title">
 					<span class="gradient-text">Welcome to</span>
-					<span class="typing-text">My Digital Space</span>
+					<span class="typing-text">モクモクカンパニー仮想会社</span>
 				</h1>
-				<div class="terminal-window">
-					<div class="terminal-header">
-						<span class="terminal-dot"></span>
-						<span class="terminal-dot"></span>
-						<span class="terminal-dot"></span>
+				<div class="code-window">
+					<div class="window-header">
+						<div class="window-controls">
+							<span class="control close"></span>
+							<span class="control minimize"></span>
+							<span class="control maximize"></span>
+						</div>
+						<div class="window-title">~/mokumoku-terminal</div>
 					</div>
-					<div class="terminal-body">
-						<div class="command-line">
-							<span class="prompt">$</span>
-							<span class="command typing-command">echo "Hello, World!"</span>
+					<div class="window-content">
+						<div class="line">
+							<span class="prompt">mokumoku $</span>
+							<span class="command">whoami</span>
 						</div>
-						<div class="command-output show-output">
-							技術とクリエイティビティの交差点で、<br>
-							アイデアを形にする場所。
+						<div class="output">
+							<span class="highlight">Data Scientist</span> / <span class="highlight-alt">Software Engineer</span> / <span class="highlight">Indie Hacker 🚀</span>
 						</div>
-						<div class="command-line delayed">
-							<span class="prompt">$</span>
-							<span class="command typing-command-2">cat about.txt</span>
+						
+						<div class="line">
+							<span class="prompt">mokumoku $</span>
+							<span class="command">ls -la contents/</span>
 						</div>
-						<div class="command-output show-output-2">
-							ここでは、私の技術的な探求、<br>
-							プロジェクトの記録、<br>
-							そして日々の発見を共有しています。
+						<div class="output">
+							<div class="file-item">
+								<span class="file-icon">📦</span>
+								<span class="file-name">Product</span>
+								<span class="file-desc">個人プロジェクトの紹介</span>
+							</div>
+							<div class="file-item">
+								<span class="file-icon">📝</span>
+								<span class="file-name">Blog</span>
+								<span class="file-desc">日々の記録</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -46,53 +56,47 @@ import Layout from '../layouts/Layout.astro';
 					<div class="ufo-cockpit"></div>
 					<div class="ufo-beam"></div>
 				</div>
-				<div class="ufo-thought">
-					<div class="thought-bubble">
-						<span>🐮</span>
-					</div>
-				</div>
 			</div>
 		</div>
 
 		<div class="cards-section">
-			<a href="/product" class="card-link">
-				<div class="feature-card product-card">
+			<div class="kart-track"></div>
+			<a href="/product" class="card">
+				<div class="card-inner">
 					<div class="card-content">
-						<div class="card-icon">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-							</svg>
+						<div class="card-header">
+							<div class="icon-container">
+								<span class="icon-bg"></span>
+								<span class="icon">🚀</span>
+							</div>
+							<h2>Product</h2>
 						</div>
-						<h2>Product</h2>
-						<p>個人プロジェクト、実験的な取り組み、制作物をまとめています。</p>
-						<div class="card-arrow">
-							<span>→</span>
+						<p>個人プロジェクトの制作物をまとめています</p>
+						<div class="card-footer">
 						</div>
 					</div>
-					<div class="card-background"></div>
+					<div class="card-shine"></div>
 				</div>
 			</a>
 
-			<a href="/blog" class="card-link">
-				<div class="feature-card blog-card">
+			<a href="/blog" class="card">
+				<div class="card-inner">
 					<div class="card-content">
-						<div class="card-icon">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M12 19l7-7 3 3-7 7-3-3z"></path>
-								<path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
-								<path d="M2 2l7.586 7.586"></path>
-								<circle cx="11" cy="11" r="2"></circle>
-							</svg>
+						<div class="card-header">
+							<div class="icon-container">
+								<span class="icon-bg"></span>
+								<span class="icon">✏️</span>
+							</div>
+							<h2>Blog</h2>
 						</div>
-						<h2>Blog</h2>
-						<p>技術記事、チュートリアル、日々の発見を投稿しています。</p>
-						<div class="card-arrow">
-							<span>→</span>
+						<p>技術記事や日々の暮らしについて投稿していきます</p>
+						<div class="card-footer">
 						</div>
 					</div>
-					<div class="card-background"></div>
+					<div class="card-shine"></div>
 				</div>
 			</a>
+			
 		</div>
 	</div>
 </Layout>
@@ -156,82 +160,200 @@ import Layout from '../layouts/Layout.astro';
 		overflow: hidden;
 	}
 
-	.terminal-window {
-		background: var(--code-bg);
-		border-radius: 12px;
-		border: 1px solid var(--border-color);
+	.code-window {
+		background: #1a1b26;
+		border-radius: 16px;
 		overflow: hidden;
-		margin-top: 3rem;
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
-	.terminal-header {
-		background: rgba(255, 255, 255, 0.1);
-		padding: 0.75rem;
+	.window-header {
+		background: #24283b;
+		padding: 1rem;
 		display: flex;
-		gap: 0.5rem;
+		align-items: center;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
-	.terminal-dot {
+	.window-controls {
+		display: flex;
+		gap: 8px;
+	}
+
+	.control {
 		width: 12px;
 		height: 12px;
 		border-radius: 50%;
-		background: var(--border-color);
 	}
 
-	.terminal-body {
+	.close { background: #ff5f57; }
+	.minimize { background: #febc2e; }
+	.maximize { background: #28c841; }
+
+	.window-title {
+		margin-left: 1rem;
+		font-family: 'JetBrains Mono', monospace;
+		color: #7aa2f7;
+		font-size: 0.9rem;
+	}
+
+	.window-content {
 		padding: 1.5rem;
 		font-family: 'JetBrains Mono', monospace;
-		line-height: 1.6;
 	}
 
-	.command-line {
+	.line {
 		display: flex;
-		gap: 0.5rem;
-		margin-bottom: 1rem;
+		gap: 1rem;
+		margin-bottom: 0.75rem;
 		opacity: 0;
 		animation: fadeIn 0.5s forwards;
-	}
-
-	.delayed {
-		animation-delay: 2s;
 	}
 
 	.prompt {
-		color: var(--accent-color);
+		color: #7aa2f7;
 	}
 
 	.command {
-		color: #e6edf3;
+		color: #f7768e;
 	}
 
-	.typing-command {
-		animation: typing 1s steps(20, end);
-		white-space: nowrap;
-		overflow: hidden;
-	}
-
-	.typing-command-2 {
-		animation: typing 1s steps(20, end);
-		animation-delay: 2s;
-		white-space: nowrap;
-		overflow: hidden;
-	}
-
-	.command-output {
-		color: #00ff00;
+	.output {
+		color: #a9b1d6;
 		margin-bottom: 1.5rem;
-		opacity: 0;
+		padding-left: 1.5rem;
 	}
 
-	.show-output {
-		animation: fadeIn 0.5s forwards;
-		animation-delay: 1s;
+	.highlight {
+		color: #9ece6a;
+		font-weight: 600;
 	}
 
-	.show-output-2 {
-		animation: fadeIn 0.5s forwards;
-		animation-delay: 3s;
+	.highlight-alt {
+		color: #ff9e64;
+		font-weight: 600;
+	}
+
+	.emoji {
+		font-size: 1.2em;
+		margin-right: 0.5rem;
+	}
+
+	.file-item {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.file-icon {
+		font-size: 1.2em;
+	}
+
+	.file-name {
+		color: #7aa2f7;
+		font-weight: 600;
+		min-width: 100px;
+	}
+
+	.file-desc {
+		color: #a9b1d6;
+	}
+
+	.card {
+		position: relative;
+		height: 300px;
+		background: rgba(255, 255, 255, 0.03);
+		border-radius: 24px;
+		overflow: hidden;
+		text-decoration: none;
+		color: var(--text-color);
+		transition: all 0.3s ease;
+	}
+
+	.card-inner {
+		position: relative;
+		height: 100%;
+		padding: 2rem;
+		background: linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.1),
+			rgba(255, 255, 255, 0.05)
+		);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.card-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.icon-container {
+		position: relative;
+		width: 50px;
+		height: 50px;
+	}
+
+	.icon-bg {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
+		border-radius: 12px;
+		opacity: 0.2;
+	}
+
+	.icon {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.8rem;
+	}
+
+	.card-footer {
+		position: absolute;
+		bottom: 2rem;
+		left: 2rem;
+		right: 2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.tech-tags {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.tag {
+		padding: 0.3rem 0.8rem;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 20px;
+		font-size: 0.8rem;
+		transition: all 0.3s ease;
+	}
+
+	.arrow {
+		font-size: 1.5rem;
+		color: var(--accent-color);
+		transition: transform 0.3s ease;
+	}
+
+	.card:hover {
+		transform: translateY(-5px);
+	}
+
+	.card:hover .arrow {
+		transform: translateX(5px);
+	}
+
+	.card:hover .tag {
+		background: rgba(255, 255, 255, 0.2);
 	}
 
 	.ufo-container {
@@ -442,6 +564,113 @@ import Layout from '../layouts/Layout.astro';
 		50% {
 			opacity: 0.8;
 			transform: scaleY(1.1);
+		}
+	}
+
+	.kart-track {
+		position: absolute;
+		top: 50%;
+		left: -20px;
+		right: -20px;
+		height: 400px;
+		transform: translateY(-50%);
+		border: 2px dashed rgba(29, 155, 240, 0.2);
+		border-radius: 30px;
+		pointer-events: none;
+	}
+
+	.kart-character {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		animation: drive 8s linear infinite;
+		pointer-events: none;
+	}
+
+	.kart {
+		position: relative;
+		width: 40px;
+		height: 40px;
+		animation: bounce 0.5s ease-in-out infinite;
+	}
+
+	.character {
+		position: absolute;
+		top: -15px;
+		left: 50%;
+		transform: translateX(-50%);
+		font-size: 20px;
+		z-index: 2;
+	}
+
+	.kart-body {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 20px;
+		background: #1d9bf0;
+		border-radius: 10px;
+	}
+
+	.wheel {
+		position: absolute;
+		bottom: -5px;
+		width: 12px;
+		height: 12px;
+		background: #333;
+		border-radius: 50%;
+		border: 2px solid #666;
+		animation: rotate 0.5s linear infinite;
+	}
+
+	.wheel:first-child {
+		left: 2px;
+	}
+
+	.wheel:last-child {
+		right: 2px;
+	}
+
+	@keyframes drive {
+		0% {
+			left: -50px;
+			transform: translateY(-50%) rotateY(0deg);
+		}
+		45% {
+			left: calc(100% + 50px);
+			transform: translateY(-50%) rotateY(0deg);
+		}
+		50% {
+			left: calc(100% + 50px);
+			transform: translateY(-50%) rotateY(180deg);
+		}
+		95% {
+			left: -50px;
+			transform: translateY(-50%) rotateY(180deg);
+		}
+		100% {
+			left: -50px;
+			transform: translateY(-50%) rotateY(0deg);
+		}
+	}
+
+	@keyframes bounce {
+		0%, 100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-2px);
+		}
+	}
+
+	@keyframes rotate {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
 		}
 	}
 

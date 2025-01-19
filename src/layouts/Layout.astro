@@ -71,11 +71,24 @@ const navItems = [
 	}
 
 	.layout {
-		max-width: 680px;
+		max-width: 1200px;
 		margin: 0 auto;
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
+	}
+
+	@media (max-width: 1280px) {
+		.layout {
+			max-width: 90%;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.layout {
+			max-width: 100%;
+			padding: 0;
+		}
 	}
 
 	body {
@@ -266,8 +279,8 @@ const navItems = [
 
 	code {
 		font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Menlo, Monaco, 'Courier New', monospace;
-		font-size: 0.9rem;
-		line-height: 1.5;
+		font-size: 1.2rem;
+		line-height: 1;
 		color: #e6edf3;
 	}
 

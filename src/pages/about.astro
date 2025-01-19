@@ -5,20 +5,38 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="About & Contact">
 	<div class="about-container">
 		<section class="about-section">
-			<div class="profile-header">
-				<div class="profile-image-chat">
-					<div class="image-container">
+			<div class="section-header">
+				<div class="header-content">
+					<h2 class="glitch-text" data-text="ME">ME</h2>
+				</div>
+				<div class="header-line"></div>
+			</div>
+
+			<div class="profile-card">
+				<div class="profile-header">
+					<div class="profile-image-wrapper">
 						<img 
 							src="https://avatars.githubusercontent.com/kyo219" 
 							alt="Profile"
 							class="avatar"
 						/>
-						<div class="image-overlay"></div>
+						<div class="status-indicator"></div>
 					</div>
-					<div class="chat-bubble">
-						<div class="chat-input">
-							<span class="typing-text">Hello! I'm a developer who loves creating cool stuff with code!</span>
-							<span class="cursor"></span>
+					
+					<div class="profile-info">
+						<div class="info-items">
+							<div class="profile-item">
+								<span class="profile-icon">🎓</span>
+								<span class="info-text">東京大学 生物統計学修士</span>
+							</div>
+							<div class="profile-item">
+								<span class="profile-icon">💼</span>
+								<span class="info-text">Data Scientist / Software Engineer</span>
+							</div>
+							<div class="profile-item">
+								<span class="profile-icon">🚀</span>
+								<span class="info-text">個人開発者<span class="cursor"></span></span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -62,141 +80,162 @@ import Layout from '../layouts/Layout.astro';
 	.about-container {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 4rem 2rem;
+		padding: 2rem;
 	}
 
 	.about-section {
-		margin-bottom: 6rem;
+		margin: 4rem 0;
+	}
+
+	.section-header {
+		text-align: center;
+		margin-bottom: 3rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.header-content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.glitch-text {
+		font-size: 2.5rem;
+		font-weight: bold;
+		color: var(--text-color);
+		position: relative;
+		display: inline-block;
+		margin: 0;
+		min-width: 80px;
+	}
+
+	.header-line {
+		width: 60px;
+		height: 2px;
+		background: var(--accent-color);
+		margin-top: 0.5rem;
+	}
+
+	.profile-card {
+		background: var(--card-bg);
+		border-radius: 24px;
+		padding: 3rem;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.profile-card:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
 	}
 
 	.profile-header {
-		margin-bottom: 4rem;
-	}
-
-	.profile-image-chat {
 		display: flex;
+		gap: 4rem;
 		align-items: center;
-		gap: 3rem;
-		max-width: 800px; /* コンテナの最大幅を調整 */
-		margin: 0 auto;
-		padding: 0 1rem; /* 両端にパディングを追加 */
 	}
 
-	.image-container {
-		flex: 0 0 250px; /* 画像の幅を少し小さく */
+	.profile-image-wrapper {
 		position: relative;
-		border-radius: 20px;
-		overflow: hidden;
-		transform-style: preserve-3d;
-		transform: perspective(1000px);
-		transition: transform 0.3s ease;
+		flex-shrink: 0;
 	}
 
 	.avatar {
-		width: 100%;
-		height: auto;
-		display: block;
+		width: 180px;
+		height: 180px;
+		border-radius: 32px;
+		object-fit: cover;
+		border: 2px solid rgba(255, 255, 255, 0.1);
 		transition: transform 0.3s ease;
 	}
 
-	.image-overlay {
+	.status-indicator {
 		position: absolute;
-		inset: 0;
-		background: linear-gradient(45deg, rgba(29, 155, 240, 0.2), transparent);
-		opacity: 0;
-		transition: opacity 0.3s ease;
+		bottom: -8px;
+		right: -8px;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: #22c55e;
+		border: 5px solid var(--card-bg);
+		box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
 	}
 
-	.image-container:hover {
-		transform: perspective(1000px) rotateY(5deg);
-	}
-
-	.image-container:hover .image-overlay {
-		opacity: 1;
-	}
-
-	.chat-bubble {
+	.profile-info {
 		flex: 1;
-		min-width: 0; /* 追加: フレックスアイテムの最小幅を0に設定 */
-		background: var(--card-bg);
-		border: 1px solid var(--border-color);
-		border-radius: 20px;
-		padding: 1.5rem; /* パディングを少し小さく */
-		position: relative;
-		transform-origin: left center;
-		animation: popIn 0.5s ease-out forwards;
 	}
 
-	.chat-bubble::before {
-		content: '';
-		position: absolute;
-		left: -20px;
-		top: 50%;
-		transform: translateY(-50%);
-		border: 10px solid transparent;
-		border-right-color: var(--border-color);
+	.info-items {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 	}
 
-	.chat-bubble::after {
-		content: '';
-		position: absolute;
-		left: -19px;
-		top: 50%;
-		transform: translateY(-50%);
-		border: 10px solid transparent;
-		border-right-color: var(--card-bg);
+	.profile-item {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.75rem;
+		background: rgba(255, 255, 255, 0.03);
+		border-radius: 12px;
+		transition: all 0.3s ease;
 	}
 
-	.chat-input {
-		font-size: 1.2rem; /* フォントサイズを少し小さく */
+	.profile-item:hover {
+		background: rgba(255, 255, 255, 0.06);
+		transform: translateX(5px);
+	}
+
+	.profile-icon {
+		font-size: 1.25rem;
+		opacity: 0.9;
+		filter: saturate(1.2);
+	}
+
+	.info-text {
+		font-size: 1rem;
 		color: var(--text-color);
-		position: relative;
-		word-wrap: break-word; /* 追加: 長い単語を折り返す */
-		overflow-wrap: break-word; /* 追加: 長い単語を折り返す */
-	}
-
-	.typing-text {
-		display: inline-block;
-		white-space: pre-wrap; /* 変更: 改行と空白を保持しつつ折り返す */
-		overflow: hidden;
-		animation: typing 3s steps(40, end);
+		opacity: 0.9;
 	}
 
 	.cursor {
 		display: inline-block;
 		width: 3px;
-		height: 1.2rem; /* カーソルの高さを調整 */
+		height: 1.2em;
 		background: var(--accent-color);
-		margin-left: 4px;
-		animation: blink 1s step-end infinite;
+		margin-left: 0.5rem;
 		vertical-align: middle;
+		animation: blink 1s step-end infinite;
 	}
 
-	/* 以下は変更なし */
-	.section-header {
-		text-align: center;
-		margin-bottom: 4rem;
-		position: relative;
+	@keyframes blink {
+		50% { opacity: 0; }
 	}
 
-	.header-line {
-		width: 100px;
-		height: 4px;
-		background: var(--accent-color);
-		margin: 1rem auto;
-		position: relative;
-		overflow: hidden;
-	}
+	@media (max-width: 768px) {
+		.profile-header {
+			flex-direction: column;
+			text-align: center;
+			gap: 2.5rem;
+		}
 
-	.header-line::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-		animation: shimmer 2s infinite;
+		.avatar {
+			width: 160px;
+			height: 160px;
+		}
+
+		.profile-item {
+			justify-content: center;
+		}
+
+		.about-container {
+			padding: 1rem;
+		}
 	}
 
 	.contact-cards {
@@ -280,10 +319,6 @@ import Layout from '../layouts/Layout.astro';
 		to { width: 100% }
 	}
 
-	@keyframes blink {
-		50% { opacity: 0 }
-	}
-
 	@keyframes shimmer {
 		100% { transform: translateX(100%); }
 	}
@@ -294,39 +329,75 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	@media (max-width: 768px) {
-		.about-container {
-			padding: 2rem 1rem;
-		}
-
-		.profile-image-chat {
-			flex-direction: column;
-			gap: 2rem;
-			padding: 0;
-		}
-
-		.image-container {
-			flex: 0 0 200px;
-			margin: 0 auto;
-		}
-
-		.chat-bubble {
-			margin: 0;
-			padding: 1rem;
-		}
-
-		.chat-bubble::before,
-		.chat-bubble::after {
-			left: 50%;
-			top: -20px;
-			transform: translateX(-50%) rotate(-90deg);
-		}
-
-		.chat-input {
-			font-size: 1rem;
-		}
-
 		.contact-cards {
 			grid-template-columns: 1fr;
+		}
+	}
+
+	.glitch-text::before,
+	.glitch-text::after {
+		content: attr(data-text);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: var(--background-color);
+	}
+
+	.glitch-text::before {
+		left: 2px;
+		text-shadow: -2px 0 var(--accent-color);
+		clip: rect(24px, 550px, 90px, 0);
+		animation: glitch-anim-2 3s infinite linear alternate-reverse;
+	}
+
+	.glitch-text::after {
+		left: -2px;
+		text-shadow: -2px 0 var(--accent-color);
+		clip: rect(85px, 550px, 140px, 0);
+		animation: glitch-anim 2.5s infinite linear alternate-reverse;
+	}
+
+	@keyframes glitch-anim {
+		0% {
+			clip: rect(42px, 9999px, 44px, 0);
+		}
+		20% {
+			clip: rect(12px, 9999px, 59px, 0);
+		}
+		40% {
+			clip: rect(48px, 9999px, 29px, 0);
+		}
+		60% {
+			clip: rect(73px, 9999px, 61px, 0);
+		}
+		80% {
+			clip: rect(34px, 9999px, 89px, 0);
+		}
+		100% {
+			clip: rect(66px, 9999px, 81px, 0);
+		}
+	}
+
+	@keyframes glitch-anim-2 {
+		0% {
+			clip: rect(65px, 9999px, 99px, 0);
+		}
+		20% {
+			clip: rect(45px, 9999px, 28px, 0);
+		}
+		40% {
+			clip: rect(75px, 9999px, 53px, 0);
+		}
+		60% {
+			clip: rect(22px, 9999px, 67px, 0);
+		}
+		80% {
+			clip: rect(32px, 9999px, 89px, 0);
+		}
+		100% {
+			clip: rect(54px, 9999px, 97px, 0);
 		}
 	}
 </style>

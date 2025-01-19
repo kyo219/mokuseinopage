@@ -1,0 +1,55 @@
+# ビルド出力
+dist/
+.output/
+
+# 依存関係
+node_modules/
+
+# ログ
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 環境変数
+.env
+.env.*
+!.env.example
+
+# macOS固有
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VSCode固有
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+
+# Astro固有
+.astro/
+
+# キャッシュ
+.cache/
+.temp/
+.tmp/
+
+# エディタ固有
+*.swp
+*.swo
+*~
+
+# ロックファイル
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# テスト関連
+coverage/
+.nyc_output/
+
+# その他
+.idea/
+*.log
+*.bak

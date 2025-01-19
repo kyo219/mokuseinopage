@@ -4,6 +4,9 @@ import { getCollection } from 'astro:content';
 
 const products = await getCollection('product');
 const sortedProducts = products.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// Get unique tags
+const allTags = [...new Set(products.flatMap(product => product.data.tags))].sort();
 ---
 
 <Layout title="Product">
@@ -13,9 +16,16 @@ const sortedProducts = products.sort((a, b) => b.data.date.valueOf() - a.data.da
 			<p class="subtitle">A collection of my work and experiments</p>
 		</header>
 
+		<div class="tag-filter">
+			<button class="tag-button active" data-tag="all">All Products</button>
+			{allTags.map(tag => (
+				<button class="tag-button" data-tag={tag}>#{tag}</button>
+			))}
+		</div>
+
 		<div class="projects-grid">
 			{sortedProducts.map(product => (
-				<a href={`/product/${product.slug}`} class="project-card">
+				<a href={`/product/${product.slug}`} class="project-card" data-tags={JSON.stringify(product.data.tags)}>
 					<div class="project-preview">
 						{(product.data.image || product.data.images?.[0]) && (
 							<img 
@@ -218,4 +228,89 @@ const sortedProducts = products.sort((a, b) => b.data.date.valueOf() - a.data.da
 			grid-template-columns: 1fr;
 		}
 	}
+
+	.tag-filter {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+		margin-bottom: 2rem;
+		padding: 1rem;
+		background: var(--card-bg);
+		border: 1px solid var(--border-color);
+		border-radius: 12px;
+		position: sticky;
+		top: 80px;
+		z-index: 10;
+		backdrop-filter: blur(12px);
+	}
+
+	.tag-button {
+		background: transparent;
+		border: 1px solid var(--border-color);
+		color: var(--secondary-text);
+		padding: 0.5rem 1rem;
+		border-radius: 9999px;
+		font-size: 0.9rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+	}
+
+	.tag-button:hover {
+		border-color: var(--accent-color);
+		color: var(--accent-color);
+	}
+
+	.tag-button.active {
+		background: var(--accent-color);
+		border-color: var(--accent-color);
+		color: white;
+	}
+
+	.project-card.hidden {
+		display: none;
+	}
 </style>
+
+<script>
+function initializeTagFilter() {
+	const tagButtons = document.querySelectorAll('.tag-button');
+	const projectCards = document.querySelectorAll('.project-card');
+	let activeTag = 'all';
+
+	function filterProjects(tag: string) {
+		projectCards.forEach(card => {
+			const tags = JSON.parse(card.getAttribute('data-tags') || '[]');
+			if (tag === 'all' || tags.includes(tag)) {
+				card.classList.remove('hidden');
+			} else {
+				card.classList.add('hidden');
+			}
+		});
+	}
+
+	function updateActiveButton(clickedTag: string) {
+		tagButtons.forEach(button => {
+			if (button.getAttribute('data-tag') === clickedTag) {
+				button.classList.add('active');
+			} else {
+				button.classList.remove('active');
+			}
+		});
+	}
+
+	tagButtons.forEach(button => {
+		button.addEventListener('click', (e) => {
+			e.preventDefault();
+			const tag = button.getAttribute('data-tag') || 'all';
+			if (tag === activeTag) return;
+			
+			activeTag = tag;
+			updateActiveButton(tag);
+			filterProjects(tag);
+		});
+	});
+}
+
+// Initialize when the DOM is ready
+document.addEventListener('DOMContentLoaded', initializeTagFilter);
+</script>

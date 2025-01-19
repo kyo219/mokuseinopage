@@ -17,7 +17,11 @@
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
-│       └── index.astro
+│       ├── index.astro    # メインページ
+│       ├── blog/
+│       │   └── [...slug].astro
+│       └── product/
+│           └── [...slug].astro
 └── package.json
 ```
 
@@ -29,6 +33,8 @@
 
 - `src/content/blog/`: ブログ記事用
 - `src/content/product/`: プロダクト記事用
+
+**重要**: 記事は必ず`src/content/`ディレクトリ内に作成してください。`src/pages/`ディレクトリには、ルーティング用のAstroファイルのみを配置します。
 
 ### 2. 記事の作成
 
