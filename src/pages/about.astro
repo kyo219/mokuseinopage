@@ -17,8 +17,20 @@ import Layout from '../layouts/Layout.astro';
 					</div>
 					<div class="chat-bubble">
 						<div class="chat-input">
-							<span class="typing-text">Hello! I'm a developer who loves creating cool stuff with code!</span>
-							<span class="cursor"></span>
+							<span class="typing-text">
+								<div class="profile-item">
+									<span class="profile-icon">🎓</span>
+									<span>東京大学 生物統計学修士</span>
+								</div>
+								<div class="profile-item">
+									<span class="profile-icon">💼</span>
+									<span>Data Scientist / Software Engineer</span>
+								</div>
+								<div class="profile-item">
+									<span class="profile-icon">🚀</span>
+									<span>個人開発者<span class="cursor"></span></span>
+								</div>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -156,10 +168,8 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	.typing-text {
-		display: inline-block;
-		white-space: pre-wrap; /* 変更: 改行と空白を保持しつつ折り返す */
-		overflow: hidden;
-		animation: typing 3s steps(40, end);
+		display: block;  /* inlineからblockに変更 */
+		line-height: 1.6;
 	}
 
 	.cursor {
@@ -328,6 +338,18 @@ import Layout from '../layouts/Layout.astro';
 		.contact-cards {
 			grid-template-columns: 1fr;
 		}
+	}
+
+	.profile-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 0.5rem 0;
+	}
+
+	.profile-icon {
+		font-size: 1.2rem;
+		opacity: 0.9;
 	}
 </style>
 
